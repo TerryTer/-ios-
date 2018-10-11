@@ -27,7 +27,7 @@ export default {
       isShow: false,
       checkboxList: [false,false,false,false,false,false],
       password: [],
-      getPassword: window.localStorage.getItem('password').split(''),
+      getPassword: window.localStorage.getItem('password') ? window.localStorage.getItem('password').split('') : [],
       tt: 60,
       timer: null,
       errorText: '密码错误，请重新输入'
@@ -36,6 +36,16 @@ export default {
   computed: {
     isDisabled () {
       return this.count === 0;
+    }
+  },
+  mounted () {
+    let that = this;
+
+    if(that.getPassword.length === 0){
+      alert('请设置密码');
+      that.$router.push({
+        path: '/SetPassword'
+      })
     }
   },
   methods: {
